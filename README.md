@@ -13,16 +13,23 @@ Commit 1 (создание и навигация react-router)
 `npm install react-redux`
 
 1.4. Создадим какой нибудь функционал для работы с навигацией
+
 1.4.1 Делаем компоненту nav. Она для навигации. Делаем ее функциональной.
+
 1.4.2 Создаем компоненту для контента MainComponent.jsx. Делаем ее ... классовой наверное. `class MainComponent extends React.Component`
+
 1.4.3 Создаем Page1.jsx (и 2 и 3) что бы было куда переключатся. Делаем ее классовой.
 
 1.5. Добавляем библиотеку React-Router.
 `npm install react-router-dom`
+
 1.5.1 Используем NavLink в Navigation.jsx. С помощью этого мы меняем адрес в барузере. 
+
 1.5.2 Обязательно обворачиваем в `BrowserRouter` (есть альтернатива, но она устаревшая)
 ```
 <NavLink to="">Main</NavLink>
+или если ничего не надо
+<Link to="">Main</Link>
 
 <BrowserRouter>
     <Navigation/>
@@ -43,8 +50,76 @@ Commit 1 (создание и навигация react-router)
 </Switch>
 ```
 
+Commit 2. Добавляем глобальный стор, стейт, редюсер в редакс. Так же создаем экшен, экшен криэйтер,  
+---------------------
+
+Обалденная статья/перевод по redux https://rajdee.gitbooks.io/redux-in-russian/content/docs/basics/ (рус.)
+
+0. Добавляем Messages.jsx и роутинг для нее. Будем все отображать на ней.
+1. Добавляем messages-reducer.js
+1.1 Создаем пустой редюсер.
+```
+const MessagesReducer = (state, action) =>{
+    return state;
+}
+```
+1.2 Добавляем в редисер какие то начальные значения
+2. Добавляем redux-store.js
+2.1 Соберем все редюсеры в одно место (тут только один... пока)
+```
+const redusers = combineReducers({
+    messagesReducer: MessagesReducer
+});
+```
+2.2 Создадим стор и поместим туда наши редедюсеры.
+```
+let store = createStore(redusers);
+```
+
+3. 
+3.1 В Messages.jsx добавляем функцию connect() из react-redux
+```
+const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages);
+```
+3.2 в первый параметр mapStateToProps, передаем колбэк функцию, которая будет возвращать обьект
+```
+const mapStateToProps = (state) =>{
+    messages: {
+            1: 'Hello world'
+    }
+}
+```
+
+3.3 Что бы там появился store обворачиваем это все компонентой <Provider store={store}>.
+3.4 Концепцию "Презентационные компоненты и компоненты-контейнеры" пока не используем, все в одном.
+
+4. Начинаем использовать action и action create
+4.1 создаем в редюсере функцию action create. Функция возвращает экшен. 
+```
+export const addMessage = () => { //функция, это экшен криэйтор
+    return { //а вот тут уже сам эшен
+        type: ADD_MESSAGE
+    }
+}
+```
+
+4.2 Встриваем ее в connect. Теперь она доступна в пропсах компоненты. Там же доступен диспатч.
+```
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addMessage: () => {dispatch(addMessage())}
+        //addMessage: () => {dispatch({type: 'ADD_MESSAGE'})} //это работает! не путать экшен и функцию экшен криэтор
+    }
+}
+```
+
+4.3 Диспатчим ее. Диспачится не сама функция, а только сам экшен.
 
 
+План...
+
+2. нужен локальный стейт
+2.1 На странице Messages может быть?
 
 
 
@@ -53,8 +128,9 @@ Commit 1 (создание и навигация react-router)
 
 `npx create-react-app ./` создание проекта. Копоненты `Suspense, React.Component, React.PureComponent`
 
-`npm install redux` установка редакс
+`npm install redux` установка редакс. Редюсер это `(previousState, action) => newState`, `combineReducers()`, `createStore(redusers)`
 
-`npm install react-redux` установка реакт-редакс
+`npm install react-redux` установка реакт-редакс. Функции `connect(mapStateToProps, mapDispatchToProps)(Component)`, `<Provider store={store}>`
+, action и action create, dispatch()
 
-`npm install react-router-dom` методы `BrowserRouter, NavLink, Route, Switch`
+`npm install react-router-dom` методы `BrowserRouter, NavLink, Link, Route, Switch`
