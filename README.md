@@ -117,7 +117,14 @@ const mapDispatchToProps = (dispatch) => {
 
 Commit 3
 ----------
+<<<<<<< HEAD
+1. Дописываем редюсер. Теперь новые сообщения появляются.
+1.1. Добавил `let ref = React.createRef();` и переделал отправку
+
+`<button onClick={() => props.addMessage(ref.current.value)}>Send</button>`
+=======
 Дописываем редюсер. Теперь новые сообщения появляются.
+>>>>>>> a2d31c5b1fadc9fed387d89891a4ada27b636ee6
 
 
 План...
@@ -132,7 +139,9 @@ Commit 3
 Справочник.
 -----------
 
-`npx create-react-app ./` создание проекта. Компоненты `Suspense, React.Component, React.PureComponent`
+
+`npx create-react-app ./` создание проекта. Компоненты/функции `Suspense, React.Component, React.PureComponent`, `React.createRef()`
+
 
 `npm install redux` установка редакс. Редюсер это `(previousState, action) => newState`, `combineReducers()`, `createStore(redusers)`
 

@@ -1,7 +1,9 @@
 import React, {useState} from "react";
 import {connect} from "react-redux";
-import {addMessage, tmpMessage} from "../../redux/messages-reducer";
+import {addMessage} from "../../redux/messages-reducer";
 
+
+let ref = React.createRef();
 
 const Messages = (props) => {
     const [message, setMessage] = useState('');
@@ -14,9 +16,10 @@ const Messages = (props) => {
               ))}
           </ul>
           <div>
-              <input type="text" id="message_id" placeholder="add new message" />
-              <button onClick={() => props.addMessage(document.getElementById("message_id").value)}>Send</button>
-              {/*<button onClick={() => props.addMessage(message)}>Send</button>*/}
+              <input type="text" id="message_id" placeholder="add new message" ref={ref}  />
+              {/*<button onClick={() => props.addMessage(document.getElementById("message_id").value)}>Send</button>*/}
+              <button onClick={() => props.addMessage(ref.current.value)}>Send</button>
+
           </div>
       </div>
     );
