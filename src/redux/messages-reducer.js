@@ -2,21 +2,24 @@ const ADD_MESSAGE = 'ADD_MESSAGE';
 
 let initialState = {
     messages: [
-        {id:1, message: 'Hello world'},
-        {id:2, message: 'Hi!'}
+        {id: 1, message: 'Hello world'}
     ]
 };
 
-const MessagesReducer = (state = initialState, action) =>{
-    if (action.type === ADD_MESSAGE)
-        console.log('Reducer: ' + ADD_MESSAGE);
-
+const MessagesReducer = (state = initialState, action) => {
+    if (action.type === ADD_MESSAGE) {
+        return {
+            ...state,
+            messages: [...state.messages, {id: state.messages.length + 1, message: action.message}]
+        }
+    }
     return state;
 }
 
-export const addMessage = () => {
+export const addMessage = (message) => {
     return {
-        type: ADD_MESSAGE
+        type: ADD_MESSAGE,
+        message: message
     }
 }
 

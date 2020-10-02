@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import {connect} from "react-redux";
-import {addMessage} from "../../redux/messages-reducer";
+import {addMessage, tmpMessage} from "../../redux/messages-reducer";
+
 
 const Messages = (props) => {
+    const [message, setMessage] = useState('');
     return (
       <div>
-          {console.log("Messages")}
           <h1>Messages</h1>
           <ul>
               {props.messages.map(message => (
@@ -13,8 +14,9 @@ const Messages = (props) => {
               ))}
           </ul>
           <div>
-              <input type="text" placeholder="add new message"/>
-              <button onClick={() => props.addMessage()}>Send</button>
+              <input type="text" id="message_id" placeholder="add new message" />
+              <button onClick={() => props.addMessage(document.getElementById("message_id").value)}>Send</button>
+              {/*<button onClick={() => props.addMessage(message)}>Send</button>*/}
           </div>
       </div>
     );
@@ -28,7 +30,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addMessage: () => {dispatch(addMessage())}
+        addMessage: (message) => {dispatch(addMessage(message))},
         //addMessage: () => {dispatch({type: 'ADD_MESSAGE'})}
     }
 }

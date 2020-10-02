@@ -2,10 +2,10 @@ import {combineReducers, createStore} from "redux";
 import MessagesReducer from "./messages-reducer";
 
 
-const redusers = combineReducers({
+const reducers = combineReducers({
     messagesReducer: MessagesReducer
 });
 
-let store = createStore(redusers);
+let store = createStore(reducers);
 
 export default store;

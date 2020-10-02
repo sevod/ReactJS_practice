@@ -115,18 +115,24 @@ const mapDispatchToProps = (dispatch) => {
 
 4.3 Диспатчим ее. Диспачится не сама функция, а только сам экшен.
 
+Commit 3
+----------
+Дописываем редюсер. Теперь новые сообщения появляются.
+
 
 План...
 
 2. нужен локальный стейт
 2.1 На странице Messages может быть?
 
+3. Redux-thunk
+
 
 
 Справочник.
 -----------
 
-`npx create-react-app ./` создание проекта. Копоненты `Suspense, React.Component, React.PureComponent`
+`npx create-react-app ./` создание проекта. Компоненты `Suspense, React.Component, React.PureComponent`
 
 `npm install redux` установка редакс. Редюсер это `(previousState, action) => newState`, `combineReducers()`, `createStore(redusers)`
 
